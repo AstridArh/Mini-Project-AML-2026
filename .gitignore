@@ -1,0 +1,5 @@
+/venv
+/wandb
+tea_debug.log
+/results
+.DS_Store
