@@ -1,5 +1,7 @@
 /venv
+/artifacts
+/results
 /wandb
 tea_debug.log
-/results
 .DS_Store
+
