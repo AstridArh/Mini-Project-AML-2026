@@ -7,31 +7,33 @@ Group members:
 
 ## Finetune BERT for Downstream Tasks
 
-### Central problem, domain and data characteristics
-
 The central problem of this project is implementing a pre-trained BERT model and explore extensions to improve upon baseline results in a sentiment analysis classifying the polarity of IMDb Movie.
 
 The IMDb Movie dataset consist of two columns one with a text string with reviews and one binary class column with 0 being the negative and 1 the positive classification of the review. 
 
 Train, test and validation size???
 
-### Central method: chosen architecture and training mechanisms, with a brief justification if non-standard
+### Pre-finetuning analysis with CLS token and mean-pooled token
 
-Pre-finetuning analysis with CLS token and mean-pooled token
+We evaluate how much sentiment information is encoded in pretrained BERT by extracting hidden representations from each layer of BERT without finetuning and training a logsitic regression classifier on top.
 
-Finetuning
+We compare two representation strategiers: the [CLS] token and mean-pooked token embeddings. Performance is measured using accuracy and class-wise F1 scores across layers for both classes. 
 
-Edge cases 
+![CLS](plots/CLS.png)
 
-Attention matrix
+For the CLS token, we see that it quickly becomes informative after the first few layers and peaks at layer two but then saturates. This suggests that the CLS token doesn’t gain much additional task-specific information in deeper layers. We also observe a larger imbalance between the positive and negative class in the early layers, indicating that the representation is less stable and more biased before it converges.
 
-### Key experiments & results: present and explain results, e.g. in simple accuracy tables over error graphs up to visualisations of representations and/or edge cases – keep it crisp
+![Mean_pool](plots/mean_pool.png)
 
-![Alt text](plots/CLS.png)
+In contrast, the mean-pooled embeddings start at a much stronger level and improve steadily across all layers, reaching their highest performance in the final layer. Here, the F1 scores for the positive and negative classes remain very similar across layers, suggesting a more balanced and robust representation. This indicates that task-relevant information is distributed across tokens and becomes more linearly separable deeper in the network.
 
-![Alt text](plots/mean_pool.png)
+Overall, this tells us that while the CLS token captures useful information early, the full representation continues to improve throughout the model and provides a more stable signal for classification.
 
-### Discussion: summarise the most important results and lessons learned (what is good, what can be improved)
+### Finetuning
+
+### Edge cases
+
+### Attention matrix
 
 
 
