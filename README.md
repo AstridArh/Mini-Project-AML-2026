@@ -14,7 +14,8 @@ The IMDb Movie dataset consist of two columns one with a text string with review
 Dataset size
 * Test: 25k rows
 * Train: 22.5k rows
-* Validation: 2.5k rows 
+* Validation: 2.5k rows
+
 In total 50k rows
 
 ### Pre-finetuning analysis with CLS token and mean-pooled token
