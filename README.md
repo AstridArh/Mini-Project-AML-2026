@@ -11,7 +11,11 @@ The central problem of this project is implementing a pre-trained BERT model and
 
 The IMDb Movie dataset consist of two columns one with a text string with reviews and one binary class column with 0 being the negative and 1 the positive classification of the review. 
 
-Train, test and validation size???
+Dataset size
+* Test: 25k rows
+* Train: 22.5k rows
+* Validation: 2.5k rows 
+In total 50k rows
 
 ### Pre-finetuning analysis with CLS token and mean-pooled token
 
