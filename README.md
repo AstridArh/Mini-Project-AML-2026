@@ -1,56 +1,38 @@
 # Mini-Project-AML-2026
-Mini-project for Advanced Machine Learning 2026
+Group members:
+* Astrid Arhnung Schou-Hanssen
+* Ellen Hørlyck Ebdrup
+* Emil Fuhr Nielsen
+* Julie Tilling Niemann
 
-## Mini-Project Formalities and Procedure
+## Finetune BERT for Downstream Tasks
 
-### Completion requirements
+### Central problem, domain and data characteristics
 
-#### Learning goals:
+The central problem of this project is implementing a pre-trained BERT model and explore extensions to improve upon baseline results in a sentiment analysis classifying the polarity of IMDb Movie.
 
-Develop a complete ML solution on a topic of choice in a small group
+The IMDb Movie dataset consist of two columns one with a text string with reviews and one binary class column with 0 being the negative and 1 the positive classification of the review. 
 
-Understand a data science task domain of choice in more depth by choosing one problem & key question,
+Train, test and validation size???
 
-Transfer experiences from AML exercises and online tutorials/examples to implement your own machine learning approach to answer 2-5 sub-goals, 
+### Central method: chosen architecture and training mechanisms, with a brief justification if non-standard
 
-Practise evaluating & discussing your solution by applying analysis strategies.
+Pre-finetuning analysis with CLS token and mean-pooled token
+
+Finetuning
+
+Edge cases 
+
+Attention matrix
+
+### Key experiments & results: present and explain results, e.g. in simple accuracy tables over error graphs up to visualisations of representations and/or edge cases – keep it crisp
+
+![Alt text](plots/CLS.png)
+
+![Alt text](plots/mean_pool.png)
+
+### Discussion: summarise the most important results and lessons learned (what is good, what can be improved)
+
+
+
  
-
-#### Formalities & Procedure:
-
-Project is done in groups of 2–3 people
-
-Choose one of the suggested default projects or propose your own created project 
-
-Choose via doing your group formation - for your own project first check with Stefan 
-
-For creating your own project (see below), confirm your scope and goals with Stefan first (via a discussion meeting or email stehe@itu.dk)
-
-Project time is four weeks (about 20 hours)
-
-
-#### Provide mandatory informal (!) documentation in README.md of a python repo or directly in a juypter notebook to document/describe: 
-
-Names of all involved team members
-
-Central problem, domain, data characteristics
-
-Central method: chosen architecture and training mechanisms, with a brief justification if non-standard
-
-Key experiments & results: present and explain results, e.g. in simple accuracy tables over error graphs up to visualisations of representations and/or edge cases – keep it crisp
-
-Discussion: summarise the most important results and lessons learned (what is good, what can be improved)
-
-
-
-Submit via link to your github.itu.dk repo (provide access to stehe) or Colab notebook (until 07.05)
-
-Mandatory lightning project presentation (07.05)
-
-Provide a 3 min. presentation + 2 min. Q/A  
-
-2-4 slides, alternatively or ideally with live explanation or demonstration 
-
-Goal: give highlights of your project: central problem/question, central methods, key results, discussion of the most important and interesting lesson learned
-
-Focus on the audience! Thus inform and motivate your fellow students of our AML course
