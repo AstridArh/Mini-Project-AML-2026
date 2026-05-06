@@ -83,3 +83,24 @@ For comparison we include the fine-tuned BERT model for the 5 layer. Here we see
 ![attention_ft_layer5](plots/ft_bert_layer5_pos.png)
 
 Broadly, we observe that the finetuned model attention shifht from being broadly distributed patterns to into more specific attention weights. The [CLS] token highly attens to the [SEP] for later layers which is a known phenomenon called $\textbf{attention sink}$, meaning the model dumps spare attention rather than spreading it across the sentence. This is already known in litterate from the paper $\textbf{What Does BERT Look At?}$ which observeres that later heads attends heaviely to [SEP].
+
+### Progressive Unfreezing 
+
+Motivated by the analysis above, which shows that sentiment information becomes linearly separable from layer ~5 and onwards, we explore whether its necessary to fine-tune all layers simultaneously. 
+Fine-tuning all the layers at once might risk large gradients from the randomylt-initialized head corruptiing the useful lower-layer encoder representations (catastrophic forgetting). 
+
+We apply progressive unfreezing (ULMFiT - Howard & Ruder, 2018), training in three stages over three epochs:
+
+
+| Stage	| Epoch	| Trainable parameters	| Val F1	| Val Loss | 
+|----------------|-------------------|-------------------|-------------------|-------------------|
+|   1	| 1 | 	Classifier head only	| 0.726	| 0.539 |
+| 2	| 2 |	Head + top 3 encoder layers (9–11)	| 0.911	| 0.241 | 
+| 3	| 3	|   All layers	            | 0.918	| 0.251 | 
+
+Test set: Accuracy 91.86% - F1 0.9185
+
+As we can see below, the largest gain occurs between stage 1 and stage 2, confirming that the top encoder layers carry the most task-relevant information and adapt quickly when unfrozen. Stage 3 only adds a marginal improvement, which might suggest that the bottom layers contribute relatively little to sentiment classification. The slight increase in loss we see from stage 2-3 indicates mild overfitting once all layers are unfrozen. 
+![progressive_unfreeze](plots/progressive_unfreeze_stages.png)
+
+
