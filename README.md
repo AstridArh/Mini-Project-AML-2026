@@ -41,6 +41,27 @@ Overall, this tells us that while the CLS token captures useful information earl
 ___
 
 ### Edge cases
+
+Classsifying labels of test cases using the fine-tuned model achieves an accuracy of 0.916.
+
+|                | Predicted Negative | Predicted Positive |
+|----------------|-------------------|-------------------|
+| True Negative  | 11455 (91.64%)    | 1045 (8.36%)      |
+| True Positive  | 1050 (8.40%)      | 11450 (91.60%)    |
+
+To furhter analyse the confidence of the model's predictions, we find the cases in the which the model was most confident in its classification, but the classification was wrong. 
+
+Initially, we notice that the first 123 cases are false positive - indicating that the model struggles to identify negative cases. 
+
+An assumption would be that there is a connection between misclassification and movie review length, but counting number of characters in the reviews is quite ambiguous. Among the misclassifications review length ranges from 61 to 12710 characters with a mean of 1617. 
+
+Shortest false positive case (61 characters): "*More suspenseful, more subtle, much, much more disturbing....*"
+Looking into how the [CLS] token attends to the tokens in the review for a random combination of head=5 and layer=5 and find that [CLS] strongly focusses on the semantic tokens '##spense', '.' (repeated 4 times), 'more' (repeated 3 times), 'disturbing', and '##ful' in which it confidently associates with being a positive review. This indicates that the model might struggle to capture the full meaning of the sentence - in this case this review sounds quite sarcastic. 
+
+Shortest false negative case (157 characters): "*It's not Citizen Kane, but it does deliver. Cleavage, and lots of it. Badly acted and directed, poorly scripted. Who cares? I didn't watch it for the dialog.*"
+Looking into how the [CLS] token attends to the tokens in the review for a random combination of head=5 and layer=5 and find that [CLS] strongly focusses on the semantic tokens 'does', 'poorly', and 'lots' where we would assume 'poorly' definitely associates with a negative review. Again the model fails to capture that this review is positive even though it contains some trash talk. 
+
+To look into how model reacts/attends to spefic semantic tokens for a sentiment analysis, we created a function that given sentiment keywords, finds the head, layer combination that gives the highest attention scores to the keywords. 
 ___
 
 ### Attention matrix
